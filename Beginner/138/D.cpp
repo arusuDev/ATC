@@ -1,4 +1,5 @@
 #include <iostream>
+#include <vector>
 using namespace std;
 
 int N;
@@ -6,15 +7,16 @@ int N;
 class Node{
     public:
     int counter = 0;
-    int *link;
+    //int *link;
+    vector<int> link;
     bool isLeaf;
 
     Node(){
-        link = new int[N];
         isLeaf = true;
     }
     void linking(int i){
-        link[i] = 1;
+        link.push_back(i);
+        //link[i] = 1;
         //葉ではない
         isLeaf = false;
     }
@@ -30,12 +32,18 @@ void countup(Node* tree,int p,int x){
         return;
     }
     //自分自身のカウンターを増加させる。
+    for(int i=0;i<tree[p].link.size();i++){
+        countup(tree,tree[p].link[i],x);
+    }
+    /*
     for(int i=0;i<N;i++){
         if(tree[p].link[i] == 1){
             //自分自身からのリンクが有る場合は、それを呼び出す。
             countup(tree,i,x);
         }
     }
+    */
+
 }
 
 int main(void){
