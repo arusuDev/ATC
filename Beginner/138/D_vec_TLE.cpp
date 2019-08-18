@@ -7,7 +7,6 @@ int N;
 class Node{
     public:
     int counter = 0;
-    int add = 0;//この頂点より下はこの値が加算される。
     //int *link;
     vector<int> link;
 
@@ -30,22 +29,6 @@ void countup(int p,int x){
     }
 }
 
-void sumup(int pos,int x){
-    //ここの木より下にはこの値を足す。
-    x += tree[pos].add;
-    //自分自身をこの値にする。
-    tree[pos].counter = x;
-
-    if(tree[pos].link.empty()){
-        //ここが葉なら終了
-        return;
-    }
-
-    for(int i=0;i<tree[pos].link.size();i++){
-        sumup(tree[pos].link[i],x);
-    }
-}
-
 int main(void){
     int Q,a,b;
     cin >> N >> Q;
@@ -57,10 +40,8 @@ int main(void){
     int p,x;
     for(int i=0;i<Q;i++){
         cin >> p >> x;
-        tree[p-1].add += x;
-        //countup(p-1,x);
+        countup(p-1,x);
     }
-    sumup(0,0);
     
     for(int i=0;i<N;i++){
         cout << tree[i].counter << " ";
