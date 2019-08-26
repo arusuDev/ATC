@@ -8,8 +8,8 @@ void pass(int N,int iter,string BF){
     if(iter == N){
         cout << BF << endl;
     }else{
-        pass(N,iter+1,BF+"a");
-        pass(N,iter+1,BF+"b");
+        pass(N, iter + 1, BF + "a");
+        pass(N, iter + 1, BF + "b");
         pass(N, iter + 1, BF + "c");
     }
 }
